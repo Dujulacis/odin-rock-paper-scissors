@@ -44,19 +44,23 @@ function getComputerChoice(){
 
 function playRound(computer_choice, human_choice){
     if (computer_choice == human_choice){
-        roundWinnerText.textContent=("Tie this round!")
+        roundWinnerText.innerHTML = ("<strong>Tie</strong> this round!")
     } else if 
     ( 
     (computer_choice == CHOICE_ARRAY[0] && human_choice == CHOICE_ARRAY[2]) || 
     (computer_choice == CHOICE_ARRAY[1] && human_choice == CHOICE_ARRAY[0]) ||
     (computer_choice == CHOICE_ARRAY[2] && human_choice == CHOICE_ARRAY[1]) 
     ) {
-        roundWinnerText.textContent=("Computer wins this round!")
+        roundWinnerText.innerHTML = ("<strong>Computer</strong> wins this round!")
         computer_score+=1
     } else{ 
-        roundWinnerText.textContent=("Player wins this round!")
+        roundWinnerText.innerHTML = ("<strong>Player</strong> wins this round!")
         human_score+=1
     }
+    playerChoiceText.innerHTML = (`<i>Player</i> chose <strong>${human_choice}</strong>!`);
+    computerChoiceText.innerHTML = (`<i>Computer</i> chose <strong>${computer_choice}</strong>!`);
+    winnerTextContainer.appendChild(playerChoiceText)
+    winnerTextContainer.appendChild(computerChoiceText)
     winnerTextContainer.appendChild(roundWinnerText);
     calcRound(round+1, maxRound)
 }
@@ -70,11 +74,11 @@ function calcRound(roundNum, maxRound){
     } else if (roundNum == maxRound) {
         round+=1
         if (computer_score == human_score){
-            gameWinnerText.textContent=("Tie this game!")
+            gameWinnerText.textContent = ("Tie this game!")
         } else if (computer_score > human_score){
-            gameWinnerText.textContent=("Computer wins this game!")
+            gameWinnerText.textContent = ("Computer wins this game!")
         } else{
-            gameWinnerText.textContent=("Player wins this game!")
+            gameWinnerText.textContent = ("Player wins this game!")
         }
         winnerTextContainer.appendChild(gameWinnerText)
         buttons.forEach((button) => {
@@ -83,7 +87,7 @@ function calcRound(roundNum, maxRound){
         })
 
     }
-    document.getElementById("roundScores").textContent=(`Round: ${round} || Scores: Computer: ${computer_score} | Player: ${human_score}`)
+    document.getElementById("roundScores").textContent = (`Round: ${round} || Scores: Computer: ${computer_score} | Player: ${human_score}`)
 }
 
 
@@ -97,6 +101,12 @@ buttons.forEach((button) => {
   })
 
 const winnerTextContainer = document.querySelector(".content .container")
+
+const playerChoiceText = document.createElement("p")
+playerChoiceText.setAttribute("style", "text-align: center; font-weight: 500")
+
+const computerChoiceText = document.createElement("p")
+computerChoiceText.setAttribute("style", "text-align: center; font-weight: 500")
 
 const roundWinnerText = document.createElement("p")
 roundWinnerText.setAttribute("style", "text-align: center; font-weight: 500")
